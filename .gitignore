@@ -1,6 +1,3 @@
-/.env
-/audio_1174979119411372052.mp3
-/audio_692627094441689088.mp3
-/metadata.json
-/output.mp3
-/__pycache__
+.env
+*.mp3
+__pycache__

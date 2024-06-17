@@ -46,18 +46,6 @@ async def on_ready():
     print(f'Logged in as {bot.user}')
 
 @bot.command()
-async def introduce(ctx):
-    await ctx.send(f'Con Gà là tôi chứ không phải con gà!')
-
-@bot.command()
-async def ping(ctx):
-    await ctx.send(f'pong!')
-
-@bot.command()
-async def say_hi_to(ctx, user: discord.Member):
-    await ctx.send(f'Hello {user.mention}, Nice to see you!')
-
-@bot.command()
 async def sing(ctx, url: str):
     await joinVoiceChannel(ctx)
 
@@ -71,7 +59,7 @@ async def sing(ctx, url: str):
 
     audio_stream_info = get_audio(url)
     if audio_stream_info:
-        title, abr, audio_stream_url = audio_stream_info
+        title, _, audio_stream_url = audio_stream_info
         source = discord.FFmpegPCMAudio(audio_stream_url, **ffmpeg_options)
         await ctx.send(f'Playing: {title}')
         await ctx.send(f'Queue remains: {audio_queue.qsize()}')
@@ -89,13 +77,13 @@ async def compose(ctx, url: str, transpose: int, speed: float):
 
     audio_stream_info = get_audio(url)
     if audio_stream_info:
-        title, abr, audio_stream_url = audio_stream_info
+        _, abr, audio_stream_url = audio_stream_info
 
         await ctx.send(f'Downloading audio stream with bitrate {abr}...')
-        audio_file_path = f'audio_{ctx.guild.id}.mp3'
+        audio_file_path = f'static/modified/audio_{ctx.guild.id}.mp3'
         ffmpeg.input(audio_stream_url).output(audio_file_path).run(overwrite_output=True)
         await ctx.send(f'Transpose {transpose} and speed {int(speed*100)}%...')
-        audio_file_path, sr = convert(audio_file_path, transpose=transpose, speed=speed)
+        audio_file_path, _ = convert(audio_file_path, transpose=transpose, speed=speed)
         discord_audio_source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(audio_file_path))
         ctx.voice_client.play(discord_audio_source)
         await ctx.send(f'Playing...')
