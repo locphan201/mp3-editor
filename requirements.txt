@@ -1,9 +1,9 @@
-pytube==12.1.0
-librosa==0.8.1
+pytube==15.0.0
+librosa==0.8.1 # 0.10.2.post1
 numpy==1.22.4
 scipy==1.10.1
 ffmpeg-python==0.2.0
-spleeter==2.3.2
+spleeter==2.4.0
 pydub==0.25.1
 wave==0.0.2
 pyaudio==0.2.14

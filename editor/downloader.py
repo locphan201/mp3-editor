@@ -13,7 +13,7 @@ def get_audio(url):
         print('get_audio - Error:', str(e))
         return None
 
-def save_audio(audio_stream_info, output_dir='static/audio/original'):
+def save_audio(audio_stream_info, output_dir='assets/input'):
     try:
         os.makedirs(output_dir, exist_ok=True)
         title, _, audio_stream_url = audio_stream_info
@@ -33,9 +33,11 @@ def download_audio(url):
         if audio_stream:
             print(f'Downloading audio: {yt.title}')
 
-            output_dir = os.path.join('static', 'audio', 'original')
+            foldername = str(uuid.uuid4())
+            output_dir = os.path.join('static', 'audio', foldername)
             os.makedirs(output_dir, exist_ok=True)
-            saved_filename = str(uuid.uuid4()) + '.mp3'
+
+            saved_filename ='original.mp3'
 
             output_file_path = os.path.join(output_dir, saved_filename)
             ffmpeg.input(audio_stream.url).output(output_file_path).run(overwrite_output=True)
@@ -50,5 +52,5 @@ def download_audio(url):
         return None
     
 if __name__ == '__main__':
-    url = 'https://www.youtube.com/watch?v=HTSqRkVpL9E'
+    url = 'https://www.youtube.com/watch?v=10eE6XdydwA'
     download_audio(url)

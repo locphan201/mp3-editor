@@ -15,7 +15,8 @@ def transpose(file_path, transpose=0):
     output_dir = os.path.dirname(file_path)
 
     os.makedirs(output_dir, exist_ok=True)
-    output_file_path = os.path.join(output_dir, f'transpose_{transpose}.{extension}')
+    output_file_path = os.path.join(output_dir, f'transpose_{transpose}{extension}')
     wavfile.write(output_file_path, sr, (audio * 32767).astype(np.int16))
 
+    print(f'Audio saved: {output_file_path}')
     return output_file_path

@@ -15,7 +15,8 @@ def change_tempo(file_path, speed=1.0):
     output_dir = os.path.dirname(file_path)
 
     os.makedirs(output_dir, exist_ok=True)
-    output_file_path = os.path.join(output_dir, f'tempo_{speed}.{extension}')
+    output_file_path = os.path.join(output_dir, f'tempo_{speed}{extension}')
     wavfile.write(output_file_path, sr, (audio * 32767).astype(np.int16))
 
+    print(f'Audio saved: {output_file_path}')
     return output_file_path
